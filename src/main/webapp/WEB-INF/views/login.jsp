@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: HJ
-  Date: 2021-10-30
-  Time: 오후 9:57
+  Date: 2021-10-31
+  Time: 오후 6:40
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,16 +13,15 @@
     <title>Title</title>
 </head>
 <body>
-<c:if test="${empty user}">
-    <p>
-        <a href="<c:url value="/login" />">로그인</a>
-    </p>
-    <p>
-        <a href="<c:url value="/register" />">회원가입</a>
-    </p>
-</c:if>
-<c:if test="${! empty user}">
-    <p>${user.name}님 환영합니다.</p>
-</c:if>
+<form action="login" method="post">
+    <label>EMAIL
+        <input type="text" name="email">
+    </label>
+    <label>PASSWORD
+        <input type="password" name="password">
+    </label>
+
+    <button type="submit">로그인</button>
+</form>
 </body>
 </html>
