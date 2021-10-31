@@ -45,4 +45,11 @@ public class AuthController {
 
         return "register";
     }
+
+    @GetMapping(value = "/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("user");
+        return "redirect:/";
+    }
 }

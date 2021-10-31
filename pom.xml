@@ -67,7 +67,10 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>2.7.4</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+        </dependency>
 
 
     </dependencies>

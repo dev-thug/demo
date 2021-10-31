@@ -22,6 +22,12 @@ public class HelloController {
         return "index";
     }
 
+    @GetMapping(value = "/food")
+    public String hello() {
+
+        return "index";
+    }
+
 //    @PostMapping(value = "/login")
 //    public String login(HttpServletRequest request, @RequestParam String email, @RequestParam String password, @RequestParam String name) {
 //        System.out.println(email + password);

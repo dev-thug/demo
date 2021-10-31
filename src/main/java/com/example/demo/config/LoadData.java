@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.config;
 
 import com.example.demo.model.FoodMapper;
 import com.example.demo.vo.Food;
@@ -7,20 +7,24 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 
-@Service
-@RequiredArgsConstructor
-public class FoodService {
-
-    private final FoodMapper foodMapper;
 //
-//    void initDatabase() throws ParseException {
+//@Configuration
+//@RequiredArgsConstructor
+//public class LoadData {
+//    private static final Logger log = LoggerFactory.getLogger(LoadData.class);
+//    private final FoodMapper foodMapper;
+//    @Bean
+//    CommandLineRunner initDatabase() throws ParseException {
 //
 //
 //        long startTime = System.currentTimeMillis();
@@ -31,8 +35,8 @@ public class FoodService {
 //        headers.setContentType(MediaType.APPLICATION_JSON);
 //
 //        String key = "4514d4ff87db4cf8b776";
-//        int start = 1;
-//        int end = 999; // total_count = 1318
+//        int start = 999;
+//        int end = 1318; // total_count = 1318
 //        HttpEntity entity = new HttpEntity(headers);
 //        URI uri = URI.create("http://openapi.foodsafetykorea.go.kr/api/4514d4ff87db4cf8b776/COOKRCP01/json/" + start + "/" + end);
 //
@@ -68,4 +72,6 @@ public class FoodService {
 //            log.info("PreLoading Time : " + (endTime - startTime) + "ms");
 //        };
 //    }
-}
+//
+//
+//}

@@ -11,6 +11,16 @@
 <html>
 <head>
     <title>Title</title>
+
+    <script>
+        function logout() {
+            var logout = confirm("로그아웃 하시겠습니까?");
+            if (logout == true) {
+                location.href = "/logout"
+            }
+
+        }
+    </script>
 </head>
 <body>
 <c:if test="${empty user}">
@@ -20,9 +30,13 @@
     <p>
         <a href="<c:url value="/register" />">회원가입</a>
     </p>
+
 </c:if>
 <c:if test="${! empty user}">
     <p>${user.name}님 환영합니다.</p>
+    <p>
+        <a onclick="logout()">로그아웃</a>
+    </p>
 </c:if>
 </body>
 </html>
