@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.demo.vo.User" %><%--
   Created by IntelliJ IDEA.
   User: HJ
   Date: 2021-11-01
@@ -21,6 +21,26 @@
 
     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
     <script>
+
+        function myItem() {
+            $.ajax({
+                type: "get",
+                dataType: "text",
+                url: "items",
+                success: function (response) {
+                    var html = "<div>"
+                    $.each(JSON.parse(response), function (index, item) {
+                        html += "<p><span>" + item.name + "</span></p>"
+                    })
+                    html += "</div>"
+                    $("#items").empty()
+                    $("#items").append(html);
+
+                }
+
+
+            })
+        }
 
 
         function foods(part) {
@@ -61,8 +81,6 @@
                         html += "</c:if>"
                         html += "</div></div></div>"
 
-                        console.log(item.mainImg)
-
                     })
                     html += "</div>"
                     $("#foods").empty()
@@ -75,6 +93,8 @@
 
         $(document).ready(function () {
             foods("후식")
+            myItem()
+
         });
 
         $(document).on("click", ".part li", function () {
@@ -233,25 +253,39 @@
         </div>
         <!-- End of Main Content -->
 
+        <c:if test="${! empty user}">
+            <div class="row" style="display: flex; align-content: center; position: fixed; bottom: 0; width: 100%">
+                <div style="width: 20%"></div>
 
-        <div class="row" style="display: flex; align-content: center; position: fixed; bottom: 0; width: 100%">
-            <div class="col-xl-6 col-md-6 mb-6">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    내 장바구니</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                <div class="col-xl-6 col-md-6 mb-6" id="demo" class="collapse">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        내 장바구니
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="items">
+
+                                        <p><span>음식이름</span></p>
+                                        <p><span>음식이름</span></p>
+                                        <p><span>음식이름</span></p>
+                                        <p><span>음식이름</span></p>
+
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="#" class="btn btn-success btn-circle btn-lg">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </c:if>
 
 
         <!-- Footer -->
