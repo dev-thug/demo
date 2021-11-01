@@ -14,10 +14,10 @@ public interface FoodMapper {
     int save(@Param("food") final Food food);
 
     @Select("select * from food where id=#{id}")
-    User findById(@Param("id") int id);
+    Food findById(@Param("id") int id);
 
-    @Select("select * from food where part=#{part}")
-    Food findByPart(@Param("part") String part);
+    @Select("select * from food where part=#{part} limit 10")
+    List<Food> findAllFood(@Param("part") String part);
 
     @Select("select distinct part from food")
     List<String> findAllByPart();

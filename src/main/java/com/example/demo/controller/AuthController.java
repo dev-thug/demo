@@ -25,6 +25,7 @@ public class AuthController {
     @PostMapping(value = "/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
+        System.out.println(email+password);
         User user = userService.login(email, password);
 
         session.setAttribute("user", user);
@@ -40,10 +41,9 @@ public class AuthController {
 
     @PostMapping(value = "/register")
     public String register(@RequestParam String email, @RequestParam String password, @RequestParam String name) {
-
         userService.save(User.builder().email(email).password(password).name(name).build());
 
-        return "register";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/logout")

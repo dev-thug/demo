@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,4 +21,12 @@ public class FoodService {
 
     private final FoodMapper foodMapper;
 
+
+    public List<String> findAllFood(){
+        return foodMapper.findAllByPart();
+    }
+
+    public List<Food> findAllByPart(String part){
+        return foodMapper.findAllFood(part);
+    }
 }

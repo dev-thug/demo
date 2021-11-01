@@ -1,34 +1,75 @@
 package com.example.demo;
 
 import com.example.demo.model.FoodMapper;
+import com.example.demo.service.FoodService;
+import com.example.demo.service.ItemService;
 import com.example.demo.service.UserService;
+import com.example.demo.vo.Food;
+import com.example.demo.vo.Item;
+import com.example.demo.vo.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
 
-    private final UserService userService;
-    private final FoodMapper foodMapper;
-    @GetMapping(value = "/")
-    public String hello() {
+    private final FoodService foodService;
+    private final ItemService itemService;
 
+    @GetMapping(value = "/")
+    public String hello(Model model) {
+
+        model.addAttribute("parts", foodService.findAllFood());
         return "index";
     }
 
     @GetMapping(value = "/food")
     @ResponseBody
-    public List<String> menu() {
-        List<String> parts = foodMapper.findAllByPart();
+    public List<Food> foods(@RequestParam String part) {
 
-        return parts;
+        return foodService.findAllByPart(part);
     }
 
+    @GetMapping("items")
+    @ResponseBody
+    public List<Food> myItem(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        if (session == null) {
+            throw new Exception();
+        }
+        User user = (User) session.getAttribute("user");
+
+        return itemService.findAllItemByUser(user.getId());
+    }
+
+    @PostMapping("item")
+    @ResponseBody
+    public int addItem(HttpServletRequest request, @RequestParam int foodId) throws Exception {
+        HttpSession session = request.getSession();
+        if (session == null) {
+            throw new Exception();
+        }
+        User user = (User) session.getAttribute("user");
+        Item item = Item.builder().foodId(foodId).userId(user.getId()).build();
+        return itemService.saveItem(item);
+    }
+
+    @PutMapping("item")
+    public void completed(HttpServletRequest request, @RequestParam int foodId) throws Exception {
+        HttpSession session = request.getSession();
+        if (session == null) {
+            throw new Exception();
+        }
+        User user = (User) session.getAttribute("user");
+        itemService.completed(user.getId(), foodId);
+    }
 
 }
