@@ -62,14 +62,16 @@ public class MainController {
         return itemService.saveItem(item);
     }
 
-    @PutMapping("item")
-    public void completed(HttpServletRequest request, @RequestParam int foodId) throws Exception {
+    @PutMapping("completed")
+    @ResponseBody
+    public boolean completed(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         if (session == null) {
             throw new Exception();
         }
         User user = (User) session.getAttribute("user");
-        itemService.completed(user.getId(), foodId);
+        itemService.completed(user.getId());
+        return true;
     }
 
 }

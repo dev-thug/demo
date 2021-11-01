@@ -37,10 +37,21 @@
                     $("#items").append(html);
 
                 }
-
-
             })
         }
+
+        function completedItem() {
+            $.ajax({
+                type: "put",
+                url: "completed",
+                success: function () {
+                    alert("구매 완료")
+                    $("#items").empty()
+                }
+            })
+        }
+
+
 
 
         function foods(part) {
@@ -276,7 +287,7 @@
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <a href="#" class="btn btn-success btn-circle btn-lg">
+                                    <a href="#" class="btn btn-success btn-circle btn-lg" onclick="completedItem()">
                                         <i class="fas fa-check"></i>
                                     </a>
                                 </div>

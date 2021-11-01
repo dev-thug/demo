@@ -16,7 +16,7 @@ public interface ItemMapper {
     @Select("SELECT *  FROM food WHERE id in(select food_id FROM item WHERE user_id=#{userId} AND completed='0')")
     List<Food> findAllByUser(@Param("userId") int userId);
 
-    @Update("UPDATE item SET completed = '1' WHERE user_id=#{userId} AND food_id=#{foodId}")
-    void completed(@Param("userId") int userId, @Param("foodId") int foodId);
+    @Update("UPDATE item SET completed = '1' WHERE user_id=#{userId}")
+    void completed(@Param("userId") int userId);
 
 }

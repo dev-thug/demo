@@ -22,8 +22,8 @@ public class ItemService {
         return itemMapper.findAllByUser(userId);
     }
 
-    public void completed(int userId, int foodId) {
-        itemMapper.completed(userId, foodId);
+    public void completed(int userId) {
+        itemMapper.completed(userId);
     }
 
 
