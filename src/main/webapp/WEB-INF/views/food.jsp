@@ -23,6 +23,7 @@
     <script>
 
         function myItem() {
+
             $.ajax({
                 type: "get",
                 dataType: "text",
@@ -51,7 +52,17 @@
             })
         }
 
+        function addItem(foodId) {
+            $.ajax({
+                type: "post",
+                url: "item",
+                data: {foodId: foodId},
+                success: function () {
+                    myItem()
+                }
+            })
 
+        }
 
 
         function foods(part) {
@@ -64,14 +75,12 @@
                 success: function (response) {
                     var html = "<div class='row'>"
                     $.each(JSON.parse(response), function (index, item) {
-                        // html += "<input type='hiiden' value=" + item.id + "/>"
+
                         html += "<div class='col-xs-6 col-sm-4 col-md-3 col-lg-3'>"
                         html += "<div class='card shadow mb-4'>"
                         html += "<div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>"
                         html += "<h6 class='m-0 font-weight-bold text-primary'>" + item.name + "</h6>"
                         html += "</div>"
-
-
                         html += "<div class='card-body'>"
                         html += "<div class='chart-area'>"
                         html += "<div class='chartjs-size-monitor'>"
@@ -85,9 +94,10 @@
                         html += "<img src='" + item.mainImg + "' style='display: block; margin: 0 auto' >"
                         html += "</div>"
                         html += "</div>"
-                        html += "<div>"
+                        html += "<div class='addItem'>"
                         html += "<c:if test='${! empty user}'>"
-                        html += "<a class='btn btn-primary btn-user btn-block'>"
+                        html += "<a class='btn btn-primary btn-user btn-block' value=" + item.id + " >"
+
                         html += "장바구니에 담기</a>"
                         html += "</c:if>"
                         html += "</div></div></div>"
@@ -101,6 +111,12 @@
 
             })
         }
+
+        $(document).on("click", ".addItem a", function () {
+            var foodId = $(this).attr("value")
+            addItem(foodId)
+
+        })
 
         $(document).ready(function () {
             foods("후식")
@@ -133,6 +149,7 @@
 <%--        <li value="${part}"><a>${part}</a></li>--%>
 <%--    </c:forEach>--%>
 <%--</ul>--%>
+<input type="hidden" value="">
 <div id="wrapper">
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion part" id="accordionSidebar">
 
