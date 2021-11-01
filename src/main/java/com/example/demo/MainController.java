@@ -42,11 +42,11 @@ public class MainController {
     @ResponseBody
     public List<Food> myItem(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
-        if (session == null) {
-            throw new Exception();
-        }
-        User user = (User) session.getAttribute("user");
 
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return null;
+        }
         return itemService.findAllItemByUser(user.getId());
     }
 

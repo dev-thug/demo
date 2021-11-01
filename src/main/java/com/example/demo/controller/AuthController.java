@@ -25,7 +25,6 @@ public class AuthController {
     @PostMapping(value = "/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
-        System.out.println(email+password);
         User user = userService.login(email, password);
 
         session.setAttribute("user", user);
