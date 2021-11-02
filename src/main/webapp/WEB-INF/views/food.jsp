@@ -31,7 +31,10 @@
                 success: function (response) {
                     var html = "<div>"
                     $.each(JSON.parse(response), function (index, item) {
-                        html += "<p><span>" + item.name + "</span></p>"
+
+                        // html += "</div style='width: 25px; height: 25px; overflow: hidden'><img src='" + item.mainImg + "' style='width: 25px; height: auto; display: block; margin: 0 auto;'></div>"
+
+                        html += "<p><span>"+item.part+" : </span><span>" + item.name + "</span></p>"
                     })
                     html += "</div>"
                     $("#items").empty()
@@ -90,8 +93,8 @@
                         html += "<div class='chartjs-size-monitor-shrink'>"
                         html += "<div class=''></div>"
                         html += "</div>"
-                        html += "</div style='width: 300px; height: 350px; overflow: hidden'>"
-                        html += "<img src='" + item.mainImg + "' style='width: 300px; height: auto; display: block; margin: 0 auto;'>"
+                        html += "</div style='width: 200px; height: 250px; overflow: hidden'>"
+                        html += "<img src='" + item.mainImg + "' style='width: 200px; height: auto; display: block; margin: 0 auto;'>"
                         html += "</div>"
                         html += "</div>"
                         html += "<div class='addItem'>"
