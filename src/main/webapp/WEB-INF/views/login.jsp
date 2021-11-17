@@ -34,7 +34,6 @@
                     data: queryString,
                     success: function () {
                         alert("로그인 성공");
-
                         $(location).attr("href", "/")
                     }
                     ,

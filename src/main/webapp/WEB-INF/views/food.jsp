@@ -34,7 +34,7 @@
 
                         // html += "</div style='width: 25px; height: 25px; overflow: hidden'><img src='" + item.mainImg + "' style='width: 25px; height: auto; display: block; margin: 0 auto;'></div>"
 
-                        html += "<p><span>"+item.part+" : </span><span>" + item.name + "</span></p>"
+                        html += "<p><span>" + item.part + " : </span><span>" + item.name + "</span><span>" + item.price + "</span></p>"
                     })
                     html += "</div>"
                     $("#items").empty()
@@ -48,12 +48,14 @@
             $.ajax({
                 type: "put",
                 url: "completed",
-                success: function () {
+                success: function (response) {
                     alert("구매 완료")
+                    tts("총 주문 금액은 " + response + "원 입니다.")
                     $("#items").empty()
                 }
             })
         }
+
 
         function addItem(foodId) {
             $.ajax({
@@ -82,7 +84,7 @@
                         html += "<div class='col-xs-6 col-sm-4 col-md-3 col-lg-3'>"
                         html += "<div class='card shadow mb-4'>"
                         html += "<div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>"
-                        html += "<h6 class='m-0 font-weight-bold text-primary'>" + item.name + "</h6>"
+                        html += "<h6 class='m-0 font-weight-bold text-primary'>" + item.name + "\t :" + item.price + "원" + "</h6>"
                         html += "</div>"
                         html += "<div class='card-body'>"
                         html += "<div class='chart-area'>"
@@ -93,14 +95,14 @@
                         html += "<div class='chartjs-size-monitor-shrink'>"
                         html += "<div class=''></div>"
                         html += "</div>"
-                        html += "</div style='width: 200px; height: 250px; overflow: hidden'>"
-                        html += "<img src='" + item.mainImg + "' style='width: 200px; height: auto; display: block; margin: 0 auto;'>"
+                        html += "</div style='width: 300px; height: 350px; overflow: hidden'>"
+                        html += "<img src='" + item.mainImg + "' style='width: 300px; height: auto; display: block; margin: 0 auto;'>"
                         html += "</div>"
                         html += "</div>"
                         html += "<div class='addItem'>"
                         html += "<c:if test='${! empty user}'>"
-                        html += "<a class='btn btn-primary btn-user btn-block' value=" + item.id + " >"
-
+                        html += "<a class='btn btn-primary btn-user btn-block' value=" + item.id + " a='" + item.name + "'>"
+                        html += "<input type='hidden' name=" + item.name + "/>"
                         html += "장바구니에 담기</a>"
                         html += "</c:if>"
                         html += "</div></div></div>"
@@ -117,13 +119,18 @@
 
         $(document).on("click", ".addItem a", function () {
             var foodId = $(this).attr("value")
+            var name = $(this).attr("a")
+            console.log(name.toString())
+
             addItem(foodId)
+            tts(name + " 메뉴가 장바구니에 추가 되었습니다.")
 
         })
 
         $(document).ready(function () {
             foods("후식")
             myItem()
+
 
         });
 
@@ -143,6 +150,18 @@
 
         }
 
+        function tts(text) {
+            if (text) {
+                $.post('../tts', {text}, function (data) {
+                    let audio = new Audio("../media/" + data + ".mp3")
+                    audio.play();
+
+                });
+            }
+
+        }
+
+
     </script>
 
 </head>
@@ -152,7 +171,7 @@
 <%--        <li value="${part}"><a>${part}</a></li>--%>
 <%--    </c:forEach>--%>
 <%--</ul>--%>
-<input type="hidden" value="">
+
 <div id="wrapper">
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion part" id="accordionSidebar">
 

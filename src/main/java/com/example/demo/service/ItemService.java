@@ -26,5 +26,7 @@ public class ItemService {
         itemMapper.completed(userId);
     }
 
-
+    public int priceAll(int userId){
+        return itemMapper.priceAll(userId);
+    }
 }

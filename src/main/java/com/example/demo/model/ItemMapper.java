@@ -19,4 +19,7 @@ public interface ItemMapper {
     @Update("UPDATE item SET completed = '1' WHERE user_id=#{userId}")
     void completed(@Param("userId") int userId);
 
+    @Select("SELECT sum(price)  FROM food WHERE id in(select food_id FROM item WHERE user_id=#{userId} AND completed='0')")
+    int priceAll(@Param("userId") int userId);
+
 }

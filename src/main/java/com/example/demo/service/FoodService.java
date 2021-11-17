@@ -29,4 +29,6 @@ public class FoodService {
     public List<Food> findAllByPart(String part){
         return foodMapper.findAllFood(part);
     }
+
+
 }

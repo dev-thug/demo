@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 import com.example.demo.model.FoodMapper;
 import com.example.demo.service.FoodService;
@@ -64,14 +64,27 @@ public class MainController {
 
     @PutMapping("completed")
     @ResponseBody
-    public boolean completed(HttpServletRequest request) throws Exception {
+    public int completed(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         if (session == null) {
             throw new Exception();
         }
         User user = (User) session.getAttribute("user");
+        int price = itemService.priceAll(user.getId());
+
         itemService.completed(user.getId());
-        return true;
+        return price;
     }
+
+//    @GetMapping("price")
+//    @ResponseBody
+//    public int price(HttpServletRequest request) throws Exception {
+//        HttpSession session = request.getSession();
+//        if (session == null) {
+//            throw new Exception();
+//        }
+//        User user = (User) session.getAttribute("user");
+//        return
+//    }
 
 }

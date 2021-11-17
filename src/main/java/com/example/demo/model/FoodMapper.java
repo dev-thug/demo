@@ -16,7 +16,7 @@ public interface FoodMapper {
     @Select("select * from food where id=#{id}")
     Food findById(@Param("id") int id);
 
-    @Select("select * from food where part=#{part} limit 50")
+    @Select("select * from food where part=#{part} limit 100")
     List<Food> findAllFood(@Param("part") String part);
 
     @Select("select distinct part from food")

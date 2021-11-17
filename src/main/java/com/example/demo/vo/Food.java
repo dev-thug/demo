@@ -13,5 +13,6 @@ public class Food {
     private String detailImg;
     private String ingredients;
     private String part;
+    private int price;
 
 }

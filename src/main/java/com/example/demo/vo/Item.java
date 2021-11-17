@@ -10,4 +10,5 @@ public class Item {
     private int userId;
     private int foodId;
     private boolean completed;
+
 }
