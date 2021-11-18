@@ -34,7 +34,6 @@ public class MainController {
     @GetMapping(value = "/food")
     @ResponseBody
     public List<Food> foods(@RequestParam String part) {
-
         return foodService.findAllByPart(part);
     }
 

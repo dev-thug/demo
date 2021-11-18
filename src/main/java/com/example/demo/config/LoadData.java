@@ -56,8 +56,8 @@ public class LoadData {
             data = (JSONObject) row.get(i);
             Food food = Food.builder()
                     .name(data.get("RCP_NM").toString().trim())
-                    .mainImg(data.get("ATT_FILE_NO_MAIN").toString())
-                    .detailImg(data.get("ATT_FILE_NO_MK").toString())
+                    .main_img(data.get("ATT_FILE_NO_MAIN").toString())
+                    .detail_img(data.get("ATT_FILE_NO_MK").toString())
                     .ingredients(data.get("RCP_PARTS_DTLS").toString().replace("\n", " "))
                     .part(data.get("RCP_PAT2").toString())
                     .build(); // 메뉴명

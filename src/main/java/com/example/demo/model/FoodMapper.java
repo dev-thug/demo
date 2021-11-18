@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import com.example.demo.vo.Food;
-import com.example.demo.vo.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,6 +20,9 @@ public interface FoodMapper {
 
     @Select("select distinct part from food")
     List<String> findAllByPart();
+
+    @Select("select id from food where name like CONCAT('%',#{name},'%')")
+    Food findByName(@Param("name") String name);
 
 
 //    private String name;

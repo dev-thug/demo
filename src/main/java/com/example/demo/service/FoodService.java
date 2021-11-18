@@ -30,5 +30,7 @@ public class FoodService {
         return foodMapper.findAllFood(part);
     }
 
-
+    public Food findByName(String name){
+        return foodMapper.findByName(name);
+    }
 }

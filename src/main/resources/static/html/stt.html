@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		window.SpeechRecognition=window.SpeechRecognition ||
+		window.webkitSpeechRecognition;
+		const recognition=new SpeechRecognition();
+		
+		recognition.interimResults=true;
+		recognition.addEventListener("result",function(e){
+			$("textarea").val(e.results[0][0].transcript);
+		});
+		
+		$("#mic").click(function(){
+			$("#mic").attr("src","../img/micon.png");
+			recognition.start();
+			
+			setTimeout(function(){
+				$("#mic").attr("src","../img/mic.png");
+				recognition.stop();
+				
+				const text=$("textarea").val();
+				$.post("../stt",{text},function(data){
+					alert(data);
+				});
+				
+			},5000); 
+			
+		});
+		
+	});	 	
+	function tts(text){
+		$.post('../tts',{text},function(data){
+			//alert(data);
+			//$("audio").attr("src","tts.mp3");
+			const audio=new Audio("../media/"+data+".mp3");
+			audio.play();
+		});
+	};
+</script>
+</head>
+<body>
+	<center>
+		마이크를 누르고 5초간 말하세요<br>
+		<img src="../img/mic.png" id="mic" width="100"><br>
+		<textarea rows="2" cols="50"></textarea><br>
+	</center>
+</body>
+</html>

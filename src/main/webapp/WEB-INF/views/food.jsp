@@ -96,7 +96,7 @@
                         html += "<div class=''></div>"
                         html += "</div>"
                         html += "</div style='width: 300px; height: 350px; overflow: hidden'>"
-                        html += "<img src='" + item.mainImg + "' style='width: 300px; height: auto; display: block; margin: 0 auto;'>"
+                        html += "<img src='" + item.main_img + "' style='width: 300px; height: auto; display: block; margin: 0 auto;'>"
                         html += "</div>"
                         html += "</div>"
                         html += "<div class='addItem'>"
@@ -132,6 +132,33 @@
             myItem()
 
 
+            window.SpeechRecognition=window.SpeechRecognition ||
+                window.webkitSpeechRecognition;
+            const recognition=new SpeechRecognition();
+
+            recognition.interimResults=true;
+            recognition.addEventListener("result",function(e){
+                $("textarea").val(e.results[0][0].transcript);
+            });
+
+            $("#mic").click(function(){
+                $("#mic").attr("src","../img/micon.png");
+                recognition.start();
+
+                setTimeout(function(){
+                    $("#mic").attr("src","../img/mic.png");
+                    recognition.stop();
+
+                    const text=$("textarea").val();
+                    $.post("../stt",{text},function(data){
+                        alert(data)
+                    });
+
+                },5000);
+                myItem()
+            });
+
+
         });
 
         $(document).on("click", ".part li", function () {
@@ -157,6 +184,7 @@
                     audio.play();
 
                 });
+                myItem()
             }
 
         }
@@ -316,6 +344,9 @@
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         내 장바구니
                                     </div>
+                                    <div>
+                                        <img src="../img/mic.png" id="mic" width="30"><br>
+                                    </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800" id="items">
 
                                         <p><span>음식이름</span></p>
@@ -325,6 +356,7 @@
 
                                     </div>
                                 </div>
+                                <div><textarea  type="hidden" rows="2" cols="50"></textarea></div>
                                 <div class="col-auto">
                                     <a href="#" class="btn btn-success btn-circle btn-lg" onclick="completedItem()">
                                         <i class="fas fa-check"></i>
