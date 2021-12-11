@@ -10,3 +10,5 @@ spring:
     password: 1234
 mybatis:
   type-aliases-package: com.example.demo.model
+server:
+  port: 8888

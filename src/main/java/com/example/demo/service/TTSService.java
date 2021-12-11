@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 public class TTSService {
 
     public String tts(String text) {
+        String clientId = "5eu50cwdvd";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "g42Rfm6qnHA2A8E2Ypjmeo4A7Hq8c8eVXYlAh3Un";//애플리케이션 클라이언트 시크릿값";
 
 //     // 파일의 경로 + 파일명
 //     String filePath = "src/main/webapp/media/tts.mp3";
